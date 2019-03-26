@@ -1,3 +1,4 @@
+import 'package:alconomia/pages/page_formulario.dart';
 import 'package:alconomia/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           userId = await widget.auth.signUp(_email, _password);
           widget.auth.sendEmailVerification();
           _showVerifyEmailSentDialog();
-          print('Signed up user: $userId');
+          print('Criado usuario: $userId');
         }
         setState(() {
           _isLoading = false;
@@ -82,28 +83,12 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     super.initState();
   }
 
-  void _changeFormToSignUp() {
-    _formKey.currentState.reset();
-    _errorMessage = "";
-    setState(() {
-      _formMode = FormMode.SIGNUP;
-    });
-  }
-
-  void _changeFormToLogin() {
-    _formKey.currentState.reset();
-    _errorMessage = "";
-    setState(() {
-      _formMode = FormMode.LOGIN;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text(Questionário'),
+          title: new Text('Alconomia'),
         ),
         body: Stack(
           children: <Widget>[
@@ -129,14 +114,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Verify your account"),
+          title: new Text("Verifique seu cadastro"),
           content:
-              new Text("Link to verify account has been sent to your email"),
+              new Text("Link enviado ao seu email para verificar cadastro"),
           actions: <Widget>[
             new FlatButton(
-              child: new Text("Dismiss"),
+              child: new Text("Cancelar"),
               onPressed: () {
-                _changeFormToLogin();
                 Navigator.of(context).pop();
               },
             ),
@@ -188,9 +172,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: CircleAvatar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           radius: 48.0,
-          child: new Image.asset('assets/flutter-icon.png'),
+          child: new Image.asset('assets/gogo_APP_etoh.jpg'),
         ),
       ),
     );
@@ -204,12 +188,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
         decoration: new InputDecoration(
-            hintText: 'Email',
+            hintText: 'E-mail',
             icon: new Icon(
               Icons.mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'o Email não pode ser vazio' : null,
+        validator: (value) =>
+            value.isEmpty ? 'o Email não pode ser vazio' : null,
         onSaved: (value) => _email = value,
       ),
     );
@@ -228,7 +213,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.lock,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'A senha não pode ser vazia' : null,
+        validator: (value) =>
+            value.isEmpty ? 'A senha não pode ser vazia' : null,
         onSaved: (value) => _password = value,
       ),
     );
@@ -242,9 +228,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           : new Text('Logar',
               style:
                   new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-      onPressed: _formMode == FormMode.LOGIN
-          ? _changeFormToSignUp
-          : _changeFormToLogin,
+      onPressed: _cadastrar,
     );
   }
 
@@ -266,5 +250,12 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
             onPressed: _validateAndSubmit,
           ),
         ));
+  }
+
+  void _cadastrar() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PageFormulario()),
+    );
   }
 }
