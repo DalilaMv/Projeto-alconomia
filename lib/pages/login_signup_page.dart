@@ -103,7 +103,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Flutter login demo'),
+          title: new Text(Questionário'),
         ),
         body: Stack(
           children: <Widget>[
@@ -209,7 +209,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+        validator: (value) => value.isEmpty ? 'o Email não pode ser vazio' : null,
         onSaved: (value) => _email = value,
       ),
     );
@@ -228,7 +228,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.lock,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
+        validator: (value) => value.isEmpty ? 'A senha não pode ser vazia' : null,
         onSaved: (value) => _password = value,
       ),
     );
@@ -237,9 +237,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   Widget _showSecondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
-          ? new Text('Create an account',
+          ? new Text('Cadastre-se',
               style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
-          : new Text('Have an account? Sign in',
+          : new Text('Logar',
               style:
                   new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
       onPressed: _formMode == FormMode.LOGIN
@@ -259,9 +259,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                 borderRadius: new BorderRadius.circular(30.0)),
             color: Colors.blue,
             child: _formMode == FormMode.LOGIN
-                ? new Text('Login',
+                ? new Text('Entrar',
                     style: new TextStyle(fontSize: 20.0, color: Colors.white))
-                : new Text('Create account',
+                : new Text('Cadastre-se',
                     style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: _validateAndSubmit,
           ),
